@@ -1,0 +1,178 @@
+﻿<Window x:Class="HypergraphsUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HypergraphsUI"
+        xmlns:viewModel="clr-namespace:HypergraphsUI.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1080">
+    <Window.Resources>
+        <viewModel:MainWindowViewModel x:Key="vm" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource vm}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Text="Algorithm" Margin="5" />
+
+                <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ListBox
+                        ItemsSource="{Binding AvailableAlgorithms}"
+                        SelectedItem="{Binding SelectedAlgorithm}">
+                    </ListBox>
+                </ScrollViewer>
+
+                <Button Grid.Row="2" VerticalAlignment="Bottom" Height="Auto" Command="{Binding AddAlgorithmCommand}">
+                    Add
+                </Button>
+            </Grid>
+
+            <Grid Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Text="Generator" Margin="5" />
+
+                <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ListBox
+                        ItemsSource="{Binding AvailableGenerators}"
+                        SelectedItem="{Binding SelectedGenerator}">
+                    </ListBox>
+                </ScrollViewer>
+
+                <Button Grid.Row="2" VerticalAlignment="Bottom" Height="Auto" Command="{Binding AddGeneratorCommand}">
+                    Add
+                </Button>
+            </Grid>
+
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0">Selected Algorithms</TextBox>
+                        <ListBox Grid.Row="1" ItemsSource="{Binding ChosenAlgorithm}"
+                                 SelectedItem="{Binding SelectedChosenAlgorithm, Mode=TwoWay}"
+                                 Margin="5">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Padding" Value="5" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="LightBlue" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </Grid>
+                    <Button Grid.Column="1" Height="30px" Command="{Binding RemoveAlgorithmCommand}">Remove</Button>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Row="0">Selected Geerators</TextBox>
+                        <ListBox Grid.Row="1" ItemsSource="{Binding ChosenGenerators}"
+                                 SelectedItem="{Binding SelectedChosenGenerator, Mode=TwoWay}"
+                                 Margin="5">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Padding" Value="5" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="LightBlue" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </Grid>
+                    <Button Grid.Column="1" Height="30px" Command="{Binding RemoveGeneratorCommand}">Remove</Button>
+                </Grid>
+                <Grid Grid.Row="2"></Grid>
+                <Grid Grid.Row="3"></Grid>
+                <Grid Grid.Row="4"></Grid>
+            </Grid>
+
+
+        </Grid>
+    </Grid>
+</Window>

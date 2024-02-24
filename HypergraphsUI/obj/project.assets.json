@@ -1,0 +1,130 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows7.0": {
+      "MathNet.Numerics/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/MathNet.Numerics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/MathNet.Numerics.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Hypergraphs/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "MathNet.Numerics": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Hypergraphs.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Hypergraphs.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MathNet.Numerics/5.0.0": {
+      "sha512": "pg1W2VwaEQMAiTpGK840hZgzavnqjlCMTVSbtVCXVyT+7AX4mc1o89SPv4TBlAjhgCOo9c1Y+jZ5m3ti2YgGgA==",
+      "type": "package",
+      "path": "mathnet.numerics/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net461/MathNet.Numerics.dll",
+        "lib/net461/MathNet.Numerics.xml",
+        "lib/net48/MathNet.Numerics.dll",
+        "lib/net48/MathNet.Numerics.xml",
+        "lib/net5.0/MathNet.Numerics.dll",
+        "lib/net5.0/MathNet.Numerics.xml",
+        "lib/net6.0/MathNet.Numerics.dll",
+        "lib/net6.0/MathNet.Numerics.xml",
+        "lib/netstandard2.0/MathNet.Numerics.dll",
+        "lib/netstandard2.0/MathNet.Numerics.xml",
+        "mathnet.numerics.5.0.0.nupkg.sha512",
+        "mathnet.numerics.nuspec"
+      ]
+    },
+    "Hypergraphs/1.0.0": {
+      "type": "project",
+      "path": "../../Hypergraphs/Hypergraphs/Hypergraphs.csproj",
+      "msbuildProject": "../../Hypergraphs/Hypergraphs/Hypergraphs.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows7.0": [
+      "Hypergraphs >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\jakub\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+      "projectName": "HypergraphsUI",
+      "projectPath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+      "packagesPath": "C:\\Users\\jakub\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\jakub\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "projectReferences": {
+            "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj": {
+              "projectPath": "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
