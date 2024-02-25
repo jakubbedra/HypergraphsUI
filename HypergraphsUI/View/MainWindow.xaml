@@ -3,8 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:HypergraphsUI"
         xmlns:viewModel="clr-namespace:HypergraphsUI.ViewModel"
+        xmlns:model="clr-namespace:HypergraphsUI.Model"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080">
     <Window.Resources>
@@ -64,13 +67,11 @@
                 </Button>
             </Grid>
 
-
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="69px"></RowDefinition>
+                    <RowDefinition Height="69px"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -83,7 +84,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0">Selected Algorithms</TextBox>
+                        <TextBlock Grid.Row="0">Selected Algorithms</TextBlock>
                         <ListBox Grid.Row="1" ItemsSource="{Binding ChosenAlgorithm}"
                                  SelectedItem="{Binding SelectedChosenAlgorithm, Mode=TwoWay}"
                                  Margin="5">
@@ -130,10 +131,10 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0">Selected Geerators</TextBox>
+                        <TextBlock Grid.Row="0">Selected Generators</TextBlock>
                         <ListBox Grid.Row="1" ItemsSource="{Binding ChosenGenerators}"
                                  SelectedItem="{Binding SelectedChosenGenerator, Mode=TwoWay}"
-                                 Margin="5">
+                                 Margin="5" SelectionChanged="ListBox_SelectionChanged">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal" />
@@ -167,12 +168,249 @@
                     </Grid>
                     <Button Grid.Column="1" Height="30px" Command="{Binding RemoveGeneratorCommand}">Remove</Button>
                 </Grid>
-                <Grid Grid.Row="2"></Grid>
-                <Grid Grid.Row="3"></Grid>
-                <Grid Grid.Row="4"></Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0">Iterations:</TextBlock>
+                    <xctk:IntegerUpDown Grid.Column="0" x:Name="integerUpDownIterations"
+                                        Value="{Binding IterationsCount}" DefaultValue="10" Minimum="1" Maximum="100"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="5" />
+                    <TextBlock Grid.Column="1">Distinct Hypergraphs:</TextBlock>
+                    <xctk:IntegerUpDown Grid.Column="1" x:Name="integerUpDownHypergraphs"
+                                        Value="{Binding HypergraphsCount}" DefaultValue="1" Minimum="1" Maximum="100"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="5" />
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Text="Sizes" Margin="5" />
+
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ListBox
+                            ItemsSource="{Binding SelectedHypergraphSizes}"
+                            SelectedItem="{Binding SelectedSize}">
+                        </ListBox>
+                    </ScrollViewer>
+
+                    <Button Grid.Row="2" VerticalAlignment="Bottom" Height="Auto" Command="{Binding RemoveSizeCommand}">
+                        Remove selected size
+                    </Button>
+
+                    <TextBlock Grid.Column="1" Grid.Row="0">New size</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding CurrentSizeValue}"></TextBox>
+                    <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Height="Auto"
+                            Command="{Binding AddSizeCommand}">
+                        Add size
+                    </Button>
+                </Grid>
             </Grid>
-
-
         </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="280px"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0">
+                Results
+            </TextBlock>
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
+                <ListView
+                    ItemsSource="{Binding Path=CollectionView}"
+                    VerticalContentAlignment="Top"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    ScrollViewer.CanContentScroll="True"
+                    SelectionMode="Single">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Algorithm">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="Algorithm" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding Algorithm}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Hypergraph type">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="HypergraphType" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding HypergraphType}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Size">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="Size" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding Size}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Avg Used colors">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="AvgUsedColors" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding AvgUsedColors}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Min Used colors">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="MinUsedColors" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding MinUsedColors}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Max Used colors">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="MaxUsedColors" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding MaxUsedColors}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Iterations/hypergraph">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="Iterations" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding Iterations}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Hypergraph instances">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="DistinctHypergraphs" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding DistinctHypergraphs}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Avg Execution Time">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="AvgExecutionTime" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding AvgExecutionTime}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Min Execution Time">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="MinExecutionTime" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding MinExecutionTime}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Max Execution Time">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="MaxExecutionTime" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding MaxExecutionTime}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+            <Button Grid.Row="2" Height="40px">Execute</Button>
+            <ProgressBar Grid.Row="3" Height="20px"></ProgressBar>
+        </Grid>
+
     </Grid>
 </Window>

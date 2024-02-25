@@ -1,10 +1,27 @@
 {
   "version": 2,
-  "dgSpecHash": "QSTh6zGW94Ve1Aj/2JH9Vq/AdXGXSp452DtPVhRcLIG5DRzXlOZLJhUyFhMmiIQH37shGkgb6GjDD30zE0LX/Q==",
+  "dgSpecHash": "BxDqe3wQNWCY6lfJl7qRXKmYQS/iiEGCdPqXf/U/M1WokU/pRyn1ilyM30Az0WldgVqnLiz7fR1EbdZUrfOUpA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+  "projectFilePath": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jakub\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512"
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\extended.wpf.toolkit\\4.6.0\\extended.wpf.toolkit.4.6.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\the.microsoft.expression.interactions\\4.5.0\\the.microsoft.expression.interactions.4.5.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.23\\microsoft.netcore.app.ref.6.0.23.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.23\\microsoft.windowsdesktop.app.ref.6.0.23.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.23\\microsoft.aspnetcore.app.ref.6.0.23.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.23\\microsoft.netcore.app.host.win-x64.6.0.23.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'The.Microsoft.Expression.Interactions 4.5.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "The.Microsoft.Expression.Interactions",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }
