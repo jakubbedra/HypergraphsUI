@@ -34,7 +34,7 @@ public class AlgorithmExecutionService
         _algorithms.Add(Algorithm.HyperstarColoring, new HypergraphsUI.Algorithms.Exact.HyperstarColoring());
         _algorithms.Add(Algorithm.HypertreeColoring, new HypertreeColoring());
         _algorithms.Add(Algorithm.HyperpathColoring, new HyperpathColoring());
-        _algorithms.Add(Algorithm.HypercycleColoring, new HypercycleColoring());
+        _algorithms.Add(Algorithm.HypercycleColoring, new HypergraphsUI.Algorithms.Exact.HypercycleColoring());
         _algorithms.Add(Algorithm.BruteForcePermutations, new BruteForcePermutationColoring());
         _algorithms.Add(Algorithm.BruteForceVariations, new BruteForceVariationColoring());
         _algorithms.Add(Algorithm.Lovasz3Uniform, new Lovasz3Uniform());

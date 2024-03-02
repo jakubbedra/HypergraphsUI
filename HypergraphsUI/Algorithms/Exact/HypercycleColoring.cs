@@ -17,6 +17,7 @@ public class HypercycleColoring : BaseAlgorithm
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        throw new NotImplementedException();
+        HypercycleColoring coloring = new HypercycleColoring();
+        return coloring.ComputeColoring(hypergraph);
     }
 }
