@@ -31,10 +31,10 @@ public class AlgorithmExecutionService
         _algorithms.Add(Algorithm.BaseGreedy, new BaseGreedy());
         _algorithms.Add(Algorithm.DSatur, new DSatur());
         _algorithms.Add(Algorithm.VertexDegreeGreedy, new VertexDegreeGreedy());
-        _algorithms.Add(Algorithm.HyperstarColoring, new HypergraphsUI.Algorithms.Exact.HyperstarColoring());
-        _algorithms.Add(Algorithm.HypertreeColoring, new HypertreeColoring());
-        _algorithms.Add(Algorithm.HyperpathColoring, new HyperpathColoring());
-        _algorithms.Add(Algorithm.HypercycleColoring, new HypergraphsUI.Algorithms.Exact.HypercycleColoring());
+        _algorithms.Add(Algorithm.HyperstarColoring, new HypergraphsUI.Algorithms.Exact.HyperstarColoringAdapter());
+        _algorithms.Add(Algorithm.HypertreeColoring, new HypertreeColoringAdapter());
+        _algorithms.Add(Algorithm.HyperpathColoring, new HyperpathColoringAdapter());
+        _algorithms.Add(Algorithm.HypercycleColoring, new HypergraphsUI.Algorithms.Exact.HypercycleColoringAdapter());
         _algorithms.Add(Algorithm.BruteForcePermutations, new BruteForcePermutationColoring());
         _algorithms.Add(Algorithm.BruteForceVariations, new BruteForceVariationColoring());
         _algorithms.Add(Algorithm.Lovasz3Uniform, new Lovasz3Uniform());
@@ -64,12 +64,16 @@ public class AlgorithmExecutionService
                     foreach (Algorithm algorithm in request.ChosenAlgorithms)
                     {
                         avgExecutionTimes.TryAdd(algorithm, 0);
-                        minExecutionTimes.TryAdd(algorithm, 0);
+                        minExecutionTimes.TryAdd(algorithm, long.MaxValue);
                         maxExecutionTimes.TryAdd(algorithm, 0);
+                        avgUsedColors.TryAdd(algorithm, 0);
+                        minUsedColors.TryAdd(algorithm, int.MaxValue);
+                        maxUsedColors.TryAdd(algorithm, 0);
                         SimpleColoringResult coloringResult = ExecuteHypergraphColoring(hypergraph, algorithm, request.IterationCount);
                         avgExecutionTimes[algorithm] += coloringResult.Time;
                         minExecutionTimes[algorithm] = Math.Min(minExecutionTimes[algorithm], coloringResult.Time);
                         maxExecutionTimes[algorithm] = Math.Max(maxExecutionTimes[algorithm], coloringResult.Time);
+                        
                         avgUsedColors[algorithm] += coloringResult.UsedColors;
                         minUsedColors[algorithm] = Math.Min(minUsedColors[algorithm], coloringResult.UsedColors);
                         maxUsedColors[algorithm] = Math.Max(maxUsedColors[algorithm], coloringResult.UsedColors);
@@ -135,23 +139,27 @@ public class AlgorithmExecutionService
     {
         BaseAlgorithm coloringAlgorithm = _algorithms[algorithm];
         int[] colors = new int [0];
-
+        int tmp = 0;
+        
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
         for (int i = 0; i < iterations; i++)
         {
+            tmp = i;
             colors = coloringAlgorithm.ComputeColoring(hypergraph);
         }
         stopwatch.Stop();
         var executionMillis = stopwatch.ElapsedMilliseconds;
         
-        stopwatch.Start();
+        Stopwatch stopwatchLoop = new Stopwatch();
+        stopwatchLoop.Start();
         for (int i = 0; i < iterations; i++)
         {
+            tmp = i;
         }
-
-        stopwatch.Stop();
-        var loopMillis = stopwatch.ElapsedMilliseconds;
+        stopwatchLoop.Stop();
+        long loopMillis = stopwatchLoop.ElapsedMilliseconds;
+        
         return new SimpleColoringResult()
         {
             UsedColors = colors.Distinct().Count(),

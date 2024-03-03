@@ -119,13 +119,13 @@ public class MainWindowViewModel : INotifyCollectionChanged
     
     public ICommand AddAlgorithmCommand { get; set; }
     public ICommand AddGeneratorCommand { get; set; }
-
     public ICommand RemoveAlgorithmCommand { get; set; }
     public ICommand RemoveGeneratorCommand { get; set; }
     public ICommand RemoveSizeCommand { get; set; }
     public ICommand AddSizeCommand { get; set; }
     public ICommand ChangeSizesListCommand { get; set; }
     public ICommand SortListViewCommand { get; set; }
+    public ICommand ExecuteAlgorithmsCommand { get; set; }
 
     private AlgorithmExecutionService _service;
     
@@ -146,6 +146,7 @@ public class MainWindowViewModel : INotifyCollectionChanged
         AddSizeCommand = new AddSizeCommand(this);
         ChangeSizesListCommand = new ChangeSizesListCommand(this);
         SortListViewCommand = new SortListViewCommand(this);
+        ExecuteAlgorithmsCommand = new ExecuteAlgorithmsCommand(this);
         
         _service = new AlgorithmExecutionService();
 
@@ -156,6 +157,27 @@ public class MainWindowViewModel : INotifyCollectionChanged
             _hypergraphSizes[generator] = new List<string>();
     }
 
+    public void ExecuteAlgorithms()
+    {
+        List<HypergraphRequest> hypergraphRequests = _chosenGenerators.Select(generator => new HypergraphRequest()
+        {
+            GeneratorType = generator, Sizes = _hypergraphSizes[generator]
+        }).ToList();
+
+        ExecutionRequest request = new ExecutionRequest()
+        {
+            ChosenAlgorithms = _chosenAlgorithms.ToList(),
+            Hypergraphs = hypergraphRequests,
+            HypergraphsCount = HypergraphsCount,
+            IterationCount = IterationsCount
+        };
+
+        ExecutionResult executionResult = _service.Execute(request);// todo: make async?
+        
+        _results.Clear();
+        executionResult.Results.ForEach(_results.Add);
+    }
+    
     public void SortResults(string columnName)
     {
         SortDescription newSortDescription = new SortDescription(columnName, ListSortDirection.Ascending);

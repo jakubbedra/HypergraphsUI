@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hypergraphs.Algorithms;
 using Hypergraphs.Model;
 using HypergraphsUI.ViewModel;
 
@@ -14,8 +15,7 @@ public class NestedMonteCarloSearch : BaseAlgorithm
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        throw new NotImplementedException();
-        // Hypergraphs.Algorithms.NestedMonteCarloSearch coloring = new Hypergraphs.Algorithms.NestedMonteCarloSearch();
-        // return coloring.ComputeColoring(hypergraph);
+        NMCS coloring = new NMCS(hypergraph, );
+        return coloring.ComputeColoring();
     }
 }

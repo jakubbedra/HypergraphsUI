@@ -408,7 +408,9 @@
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
-            <Button Grid.Row="2" Height="40px">Execute</Button>
+            <Button Grid.Row="2" Height="40px" Command="{Binding ExecuteAlgorithmsCommand}">
+                Execute
+            </Button>
             <ProgressBar Grid.Row="3" Height="20px"></ProgressBar>
         </Grid>
 

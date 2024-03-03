@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
+using Hypergraphs.Algorithms;
 using Hypergraphs.Model;
 using HypergraphsUI.ViewModel;
 
 namespace HypergraphsUI.Algorithms.Exact;
 
-public class HypertreeColoring : BaseAlgorithm
+public class HyperpathColoringAdapter : BaseAlgorithm
 {
-    public override Algorithm GetAlgorithm() => Algorithm.HypertreeColoring;
+    public override Algorithm GetAlgorithm() => Algorithm.HyperpathColoring;
 
     public override HashSet<GeneratorType> GetAllowedGeneratorTypes() =>
         new HashSet<GeneratorType>()
         {
-            GeneratorType.Hypertree
+            GeneratorType.Hyperpath
         };
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        Hypergraphs.Algorithms.HypertreeColoring coloring = new Hypergraphs.Algorithms.HypertreeColoring();
+        HyperpathColoring coloring = new HyperpathColoring();
         return coloring.ComputeColoring(hypergraph);
     }
 }
