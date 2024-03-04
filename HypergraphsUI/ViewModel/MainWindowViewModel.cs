@@ -5,15 +5,18 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Mime;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 using HypergraphsUI.Algorithms;
 using HypergraphsUI.Model;
 using HypergraphsUI.ViewModel.Commands;
 
 namespace HypergraphsUI.ViewModel;
 
-public class MainWindowViewModel : INotifyCollectionChanged
+public class MainWindowViewModel : INotifyCollectionChanged, INotifyPropertyChanged
 {
 
     private ObservableCollection<Algorithm> _availableAlgorithms;
@@ -129,8 +132,32 @@ public class MainWindowViewModel : INotifyCollectionChanged
 
     private AlgorithmExecutionService _service;
     
+    private double? _progress;
+    public double? Progress
+    {
+        get  { return _progress; }
+        set
+        {
+            _progress = value;
+            OnPropertyChanged(nameof(Progress));
+        }
+    }
+    private string _dupa;
+    public string Dupa
+    {
+        get  { return _dupa; }
+        set
+        {
+            _dupa = value;
+            OnPropertyChanged(nameof(Dupa));
+        }
+    }
+    
     public MainWindowViewModel()
     {
+        _progress = 0.0;
+        Dupa = "";
+        
         _availableAlgorithms = new ObservableCollection<Algorithm>(AlgorithmConstants.AllAlgorithms);
         _availableGenerators = new ObservableCollection<GeneratorType>(AlgorithmConstants.AllGeneratorTypes);
         _chosenGenerators = new ObservableCollection<GeneratorType>();
@@ -157,13 +184,17 @@ public class MainWindowViewModel : INotifyCollectionChanged
             _hypergraphSizes[generator] = new List<string>();
     }
 
-    public void ExecuteAlgorithms()
-    {
+    public async Task ExecuteAlgorithms()
+    { 
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            Progress = 0.0;
+        });
         List<HypergraphRequest> hypergraphRequests = _chosenGenerators.Select(generator => new HypergraphRequest()
         {
             GeneratorType = generator, Sizes = _hypergraphSizes[generator]
         }).ToList();
-
+        
         ExecutionRequest request = new ExecutionRequest()
         {
             ChosenAlgorithms = _chosenAlgorithms.ToList(),
@@ -171,11 +202,40 @@ public class MainWindowViewModel : INotifyCollectionChanged
             HypergraphsCount = HypergraphsCount,
             IterationCount = IterationsCount
         };
-
-        ExecutionResult executionResult = _service.Execute(request);// todo: make async?
         
-        _results.Clear();
-        executionResult.Results.ForEach(_results.Add);
+        var progressReporter = new Progress<double>(value =>
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Progress = value;
+            });
+        });
+        
+        // ExecutionResult executionResult = await _service.Execute(request, progressReporter);
+        // _results.Clear();
+        // executionResult.Results.ForEach(_results.Add);
+        
+        try
+        {
+            // Execute algorithms asynchronously
+            ExecutionResult executionResult = await Task.Run(() => _service.Execute(request, progressReporter));
+
+            // Clear previous results and add new results
+            _results.Clear();
+            executionResult.Results.ForEach(_results.Add);
+
+            // Set progress to 100% upon completion
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Progress = 100.0;
+            });
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions here
+            // For example: log the exception, show an error message, etc.
+            Console.WriteLine("An error occurred: " + ex.Message);
+        }
     }
     
     public void SortResults(string columnName)

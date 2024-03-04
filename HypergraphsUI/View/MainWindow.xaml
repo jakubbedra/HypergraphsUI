@@ -9,7 +9,7 @@
         xmlns:viewModel="clr-namespace:HypergraphsUI.ViewModel"
         xmlns:model="clr-namespace:HypergraphsUI.Model"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1080">
+        Title="Hypergraphs UI" Height="720" Width="1080">
     <Window.Resources>
         <viewModel:MainWindowViewModel x:Key="vm" />
     </Window.Resources>
@@ -408,10 +408,16 @@
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
+            <!-- <TextBlock Grid.Row="3" Text="{Binding Dupa}"></TextBlock> -->
             <Button Grid.Row="2" Height="40px" Command="{Binding ExecuteAlgorithmsCommand}">
                 Execute
             </Button>
-            <ProgressBar Grid.Row="3" Height="20px"></ProgressBar>
+            <ProgressBar 
+                Grid.Row="3"
+                Height="20px"
+                Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Maximum="100.0">
+            </ProgressBar>
         </Grid>
 
     </Grid>

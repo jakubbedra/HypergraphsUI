@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Hypergraphs.Model;
 using HypergraphsUI.Algorithms;
 using HypergraphsUI.Algorithms.Exact;
@@ -31,10 +32,10 @@ public class AlgorithmExecutionService
         _algorithms.Add(Algorithm.BaseGreedy, new BaseGreedy());
         _algorithms.Add(Algorithm.DSatur, new DSatur());
         _algorithms.Add(Algorithm.VertexDegreeGreedy, new VertexDegreeGreedy());
-        _algorithms.Add(Algorithm.HyperstarColoring, new HypergraphsUI.Algorithms.Exact.HyperstarColoringAdapter());
+        _algorithms.Add(Algorithm.HyperstarColoring, new HyperstarColoringAdapter());
         _algorithms.Add(Algorithm.HypertreeColoring, new HypertreeColoringAdapter());
         _algorithms.Add(Algorithm.HyperpathColoring, new HyperpathColoringAdapter());
-        _algorithms.Add(Algorithm.HypercycleColoring, new HypergraphsUI.Algorithms.Exact.HypercycleColoringAdapter());
+        _algorithms.Add(Algorithm.HypercycleColoring, new HypercycleColoringAdapter());
         _algorithms.Add(Algorithm.BruteForcePermutations, new BruteForcePermutationColoring());
         _algorithms.Add(Algorithm.BruteForceVariations, new BruteForceVariationColoring());
         _algorithms.Add(Algorithm.Lovasz3Uniform, new Lovasz3Uniform());
@@ -44,10 +45,14 @@ public class AlgorithmExecutionService
         _algorithms.Add(Algorithm.NestedRolloutPolicyAdaptation, new NestedRolloutPolicyAdaptation());
     }
 
-    public ExecutionResult Execute(ExecutionRequest request)
+    public Task<ExecutionResult> Execute(ExecutionRequest request, IProgress<double> progress)
     {
         List<ColoringResult> results = new List<ColoringResult>();
-        
+
+        int doneSamples = 0;
+        int totalSamples = request.Hypergraphs
+            .Select(h => h.Sizes.Count * request.HypergraphsCount * request.ChosenAlgorithms.Count)
+            .Sum();
         foreach (HypergraphRequest hypergraphRequest in request.Hypergraphs)
         {
             foreach (string size in hypergraphRequest.Sizes)
@@ -77,6 +82,8 @@ public class AlgorithmExecutionService
                         avgUsedColors[algorithm] += coloringResult.UsedColors;
                         minUsedColors[algorithm] = Math.Min(minUsedColors[algorithm], coloringResult.UsedColors);
                         maxUsedColors[algorithm] = Math.Max(maxUsedColors[algorithm], coloringResult.UsedColors);
+                        doneSamples++;
+                        progress.Report((double) doneSamples * 100.0 / (double) totalSamples);
                     }
                 }
                 foreach (Algorithm algorithm in request.ChosenAlgorithms)
@@ -99,18 +106,18 @@ public class AlgorithmExecutionService
                 }
             }
 
-            return new ExecutionResult()
+            return Task.FromResult(new ExecutionResult()
             {
                 SuccessfulColorings = 0,
                 Results = results
-            };
+            });
         }
 
-        return new ExecutionResult()
+        return Task.FromResult(new ExecutionResult()
         {
             SuccessfulColorings = results.Count,
             Results = results
-        };
+        });
     }
 
     public bool IsAlgorithmCompatible(Algorithm algorithm, List<GeneratorType> generators)

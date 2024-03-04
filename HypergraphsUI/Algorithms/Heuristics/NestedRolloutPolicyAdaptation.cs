@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Hypergraphs.Algorithms;
 using Hypergraphs.Model;
 using HypergraphsUI.ViewModel;
 
@@ -13,6 +14,7 @@ public class NestedRolloutPolicyAdaptation : BaseAlgorithm
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        throw new System.NotImplementedException();
+        NRPAColoring coloring = new NRPAColoring();
+        return coloring.ComputeColoring(hypergraph);
     }
 }

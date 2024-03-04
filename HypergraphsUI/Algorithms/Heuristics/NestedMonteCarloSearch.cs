@@ -15,7 +15,7 @@ public class NestedMonteCarloSearch : BaseAlgorithm
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        NMCS coloring = new NMCS(hypergraph, );
-        return coloring.ComputeColoring();
+        NMCSColoring coloring = new NMCSColoring();
+        return coloring.ComputeColoring(hypergraph);
     }
 }
