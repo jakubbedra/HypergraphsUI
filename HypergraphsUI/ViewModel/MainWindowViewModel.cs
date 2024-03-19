@@ -142,21 +142,10 @@ public class MainWindowViewModel : INotifyCollectionChanged, INotifyPropertyChan
             OnPropertyChanged(nameof(Progress));
         }
     }
-    private string _dupa;
-    public string Dupa
-    {
-        get  { return _dupa; }
-        set
-        {
-            _dupa = value;
-            OnPropertyChanged(nameof(Dupa));
-        }
-    }
     
     public MainWindowViewModel()
     {
         _progress = 0.0;
-        Dupa = "";
         
         _availableAlgorithms = new ObservableCollection<Algorithm>(AlgorithmConstants.AllAlgorithms);
         _availableGenerators = new ObservableCollection<GeneratorType>(AlgorithmConstants.AllGeneratorTypes);

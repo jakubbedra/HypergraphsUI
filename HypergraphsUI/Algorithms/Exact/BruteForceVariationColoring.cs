@@ -14,7 +14,7 @@ public class BruteForceVariationColoring : BaseAlgorithm
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        ColorVariationColoring coloring = new ColorVariationColoring();
+        CUDAColorVariationColoring coloring = new CUDAColorVariationColoring();
         return coloring.ComputeColoring(hypergraph);
     }
 }

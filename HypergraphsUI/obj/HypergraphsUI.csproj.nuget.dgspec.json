@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[4.6.0, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "The.Microsoft.Expression.Interactions": {
               "target": "Package",
               "version": "[4.5.0, )"
@@ -126,6 +130,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "ILGPU": {
+              "target": "Package",
+              "version": "[1.5.1, )"
+            },
             "MathNet.Numerics": {
               "target": "Package",
               "version": "[5.0.0, )"

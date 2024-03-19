@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "BxDqe3wQNWCY6lfJl7qRXKmYQS/iiEGCdPqXf/U/M1WokU/pRyn1ilyM30Az0WldgVqnLiz7fR1EbdZUrfOUpA==",
+  "dgSpecHash": "ElSiJZrnQ+4cSudZ8KudFN9QaI0Rs+ENaBVpgfMmNU3xoZ8rQhfQqo5IkHboUk8oK+W7f/X/Y+WxD2GmCO2Tkg==",
   "success": true,
   "projectFilePath": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\theKonfyrm\\.nuget\\packages\\extended.wpf.toolkit\\4.6.0\\extended.wpf.toolkit.4.6.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\ilgpu\\1.5.1\\ilgpu.1.5.1.nupkg.sha512",
     "C:\\Users\\theKonfyrm\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\theKonfyrm\\.nuget\\packages\\the.microsoft.expression.interactions\\4.5.0\\the.microsoft.expression.interactions.4.5.0.nupkg.sha512",
     "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.23\\microsoft.netcore.app.ref.6.0.23.nupkg.sha512",
     "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.23\\microsoft.windowsdesktop.app.ref.6.0.23.nupkg.sha512",

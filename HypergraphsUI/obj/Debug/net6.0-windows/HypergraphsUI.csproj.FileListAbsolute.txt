@@ -75,3 +75,5 @@ C:\Users\theKonfyrm\RiderProjects\HypergraphsUI\HypergraphsUI\obj\Debug\net6.0-w
 C:\Users\theKonfyrm\RiderProjects\HypergraphsUI\HypergraphsUI\obj\Debug\net6.0-windows\ref\HypergraphsUI.dll
 C:\Users\theKonfyrm\RiderProjects\HypergraphsUI\HypergraphsUI\bin\Debug\net6.0-windows\Microsoft.Expression.Interactions.dll
 C:\Users\theKonfyrm\RiderProjects\HypergraphsUI\HypergraphsUI\bin\Debug\net6.0-windows\System.Windows.Interactivity.dll
+C:\Users\theKonfyrm\RiderProjects\HypergraphsUI\HypergraphsUI\bin\Debug\net6.0-windows\ILGPU.dll
+C:\Users\theKonfyrm\RiderProjects\HypergraphsUI\HypergraphsUI\bin\Debug\net6.0-windows\Newtonsoft.Json.dll

@@ -8,10 +8,19 @@
     ".NETCoreApp,Version=v6.0": {
       "Hypergraphs/1.0.0": {
         "dependencies": {
+          "ILGPU": "1.5.1",
           "MathNet.Numerics": "5.0.0"
         },
         "runtime": {
           "Hypergraphs.dll": {}
+        }
+      },
+      "ILGPU/1.5.1": {
+        "runtime": {
+          "lib/net6.0/ILGPU.dll": {
+            "assemblyVersion": "1.5.1.0",
+            "fileVersion": "1.5.1.0"
+          }
         }
       },
       "MathNet.Numerics/5.0.0": {
@@ -29,6 +38,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "ILGPU/1.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Q4URSxEqH+u0XE3XCtYZ2h3FZgLp9VOOeelvKCmniiTlKft0JNCs13EOqayWVjwvPUbD4w/XaFlP3CdmaRdj8w==",
+      "path": "ilgpu/1.5.1",
+      "hashPath": "ilgpu.1.5.1.nupkg.sha512"
     },
     "MathNet.Numerics/5.0.0": {
       "type": "package",

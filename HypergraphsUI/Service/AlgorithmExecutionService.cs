@@ -55,12 +55,12 @@ public class AlgorithmExecutionService
             .Sum();
         foreach (HypergraphRequest hypergraphRequest in request.Hypergraphs)
         {
-            foreach (string size in hypergraphRequest.Sizes)
+            foreach (string size in hypergraphRequest.Sizes)// todo: avg used colors should be double?
             {
                 Dictionary<Algorithm, long> avgExecutionTimes = new Dictionary<Algorithm, long>();
                 Dictionary<Algorithm, long> minExecutionTimes = new Dictionary<Algorithm, long>();
                 Dictionary<Algorithm, long> maxExecutionTimes = new Dictionary<Algorithm, long>();
-                Dictionary<Algorithm, int> avgUsedColors = new Dictionary<Algorithm, int>();
+                Dictionary<Algorithm, double> avgUsedColors = new Dictionary<Algorithm, double>();
                 Dictionary<Algorithm, int> minUsedColors = new Dictionary<Algorithm, int>();
                 Dictionary<Algorithm, int> maxUsedColors = new Dictionary<Algorithm, int>();
                 for (int i = 0; i < request.HypergraphsCount; i++)
@@ -98,7 +98,7 @@ public class AlgorithmExecutionService
                         DistinctHypergraphs = request.HypergraphsCount,
                         Iterations = request.IterationCount,
                         Size = size,
-                        AvgUsedColors = avgUsedColors[algorithm] / request.HypergraphsCount,
+                        AvgUsedColors = avgUsedColors[algorithm] / (double)request.HypergraphsCount,
                         MinUsedColors = minUsedColors[algorithm],
                         MaxUsedColors = maxUsedColors[algorithm]
                     };
@@ -106,11 +106,11 @@ public class AlgorithmExecutionService
                 }
             }
 
-            return Task.FromResult(new ExecutionResult()
-            {
-                SuccessfulColorings = 0,
-                Results = results
-            });
+            // return Task.FromResult(new ExecutionResult()
+            // {
+            //     SuccessfulColorings = 0,
+            //     Results = results
+            // });
         }
 
         return Task.FromResult(new ExecutionResult()
@@ -150,19 +150,36 @@ public class AlgorithmExecutionService
         
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
-        for (int i = 0; i < iterations; i++)
+        if (!IsMonteCarlo(algorithm) && !IsBruteForce(algorithm))
         {
-            tmp = i;
-            colors = coloringAlgorithm.ComputeColoring(hypergraph);
+            for (int i = 0; i < iterations; i++)
+            {
+                tmp = i;
+                colors = coloringAlgorithm.ComputeColoring(hypergraph);
+            }
+        }
+        else
+        {
+            try
+            {
+                colors = coloringAlgorithm.ComputeColoring(hypergraph);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
         stopwatch.Stop();
         var executionMillis = stopwatch.ElapsedMilliseconds;
         
         Stopwatch stopwatchLoop = new Stopwatch();
         stopwatchLoop.Start();
-        for (int i = 0; i < iterations; i++)
+        if (!IsMonteCarlo(algorithm) && !IsBruteForce(algorithm))
         {
-            tmp = i;
+            for (int i = 0; i < iterations; i++)
+            {
+                tmp = i;
+            }
         }
         stopwatchLoop.Stop();
         long loopMillis = stopwatchLoop.ElapsedMilliseconds;
@@ -170,8 +187,18 @@ public class AlgorithmExecutionService
         return new SimpleColoringResult()
         {
             UsedColors = colors.Distinct().Count(),
-            Time = ((executionMillis - loopMillis) / iterations)
+            Time = ((executionMillis - loopMillis) / (IsMonteCarlo(algorithm) || IsBruteForce(algorithm) ? 1 : iterations))// todo: if monte-carlo -> iteration = 0
         };
+    }
+
+    private bool IsBruteForce(Algorithm algorithm)
+    {
+        return algorithm == Algorithm.BruteForcePermutations || algorithm == Algorithm.BruteForceVariations;
+    }
+
+    private bool IsMonteCarlo(Algorithm algorithm)
+    {
+        return algorithm == Algorithm.NestedMonteCarloSearch || algorithm == Algorithm.NestedRolloutPolicyAdaptation;
     }
     
 }
