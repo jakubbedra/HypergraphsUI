@@ -9,5 +9,4 @@ public enum GeneratorType
     Hypercycle,
     ThreeUniform,
     Uniform,
-    LinearUniform
 }

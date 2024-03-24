@@ -7,7 +7,7 @@ namespace HypergraphsUI.Algorithms.Exact;
 
 public class BruteForceVariationColoring : BaseAlgorithm
 {
-    public override Algorithm GetAlgorithm() => Algorithm.BruteForceVariations;
+    public override Algorithm GetAlgorithm() => Algorithm.CUDABruteForce;
 
     public override HashSet<GeneratorType> GetAllowedGeneratorTypes() =>
         AlgorithmConstants.AllGeneratorTypes;

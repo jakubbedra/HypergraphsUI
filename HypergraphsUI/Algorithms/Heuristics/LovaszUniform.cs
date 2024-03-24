@@ -12,7 +12,7 @@ public class LovaszUniform: BaseAlgorithm
     public override HashSet<GeneratorType> GetAllowedGeneratorTypes() =>
         new HashSet<GeneratorType>()
         {
-            GeneratorType.Uniform, GeneratorType.LinearUniform
+            GeneratorType.Uniform
         };
 
     public override int[] ComputeColoring(Hypergraph hypergraph)

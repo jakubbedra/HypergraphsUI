@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj": {}
+    "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj": {
+    "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+        "projectUniqueName": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
         "projectName": "HypergraphsUI",
-        "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
-        "packagesPath": "C:\\Users\\theKonfyrm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\obj\\",
+        "projectPath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+        "packagesPath": "C:\\Users\\jakub\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\theKonfyrm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\jakub\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0-windows"
@@ -26,8 +26,8 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj": {
-                "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj"
+              "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj": {
+                "projectPath": "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj"
               }
             }
           }
@@ -36,6 +36,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -69,19 +74,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             }
           ],
           "frameworkReferences": {
@@ -92,21 +97,21 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj": {
+    "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj",
+        "projectUniqueName": "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj",
         "projectName": "Hypergraphs",
-        "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj",
-        "packagesPath": "C:\\Users\\theKonfyrm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\obj\\",
+        "projectPath": "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj",
+        "packagesPath": "C:\\Users\\jakub\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\theKonfyrm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\jakub\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -124,6 +129,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -153,19 +163,19 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             },
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.23, 6.0.23]"
+              "version": "[6.0.27, 6.0.27]"
             }
           ],
           "frameworkReferences": {
@@ -173,7 +183,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

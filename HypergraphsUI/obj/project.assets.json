@@ -278,19 +278,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\theKonfyrm\\.nuget\\packages\\": {}
+    "C:\\Users\\jakub\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+      "projectUniqueName": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
       "projectName": "HypergraphsUI",
-      "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
-      "packagesPath": "C:\\Users\\theKonfyrm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\obj\\",
+      "projectPath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+      "packagesPath": "C:\\Users\\jakub\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\theKonfyrm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\jakub\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0-windows"
@@ -302,8 +302,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj": {
-              "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj"
+            "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj": {
+              "projectPath": "C:\\Users\\jakub\\RiderProjects\\Hypergraphs\\Hypergraphs\\Hypergraphs.csproj"
             }
           }
         }
@@ -312,6 +312,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -345,19 +350,19 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.23, 6.0.23]"
+            "version": "[6.0.27, 6.0.27]"
           },
           {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.23, 6.0.23]"
+            "version": "[6.0.27, 6.0.27]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.23, 6.0.23]"
+            "version": "[6.0.27, 6.0.27]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.23, 6.0.23]"
+            "version": "[6.0.27, 6.0.27]"
           }
         ],
         "frameworkReferences": {
@@ -368,7 +373,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -377,7 +382,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'The.Microsoft.Expression.Interactions 4.5.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "message": "Pakiet „The.Microsoft.Expression.Interactions 4.5.0” został przywrócony przy użyciu elementu „.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1” zamiast platformy docelowej projektu „net6.0-windows7.0”. Ten pakiet może nie być w pełni kompatybilny z Twoim projektem.",
       "libraryId": "The.Microsoft.Expression.Interactions",
       "targetGraphs": [
         "net6.0-windows7.0"

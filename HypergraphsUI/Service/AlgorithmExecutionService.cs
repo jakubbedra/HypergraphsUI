@@ -26,7 +26,6 @@ public class AlgorithmExecutionService
         _generators.Add(GeneratorType.Hypercycle, new HypercycleGenerator());
         _generators.Add(GeneratorType.Uniform, new UniformHypergraphGenerator());
         _generators.Add(GeneratorType.ThreeUniform, new ThreeUniformHypergraphGenerator());
-        _generators.Add(GeneratorType.LinearUniform, new LinearUniformHypergraphGenerator());
 
         _algorithms = new Dictionary<Algorithm, BaseAlgorithm>();
         _algorithms.Add(Algorithm.BaseGreedy, new BaseGreedy());
@@ -36,11 +35,9 @@ public class AlgorithmExecutionService
         _algorithms.Add(Algorithm.HypertreeColoring, new HypertreeColoringAdapter());
         _algorithms.Add(Algorithm.HyperpathColoring, new HyperpathColoringAdapter());
         _algorithms.Add(Algorithm.HypercycleColoring, new HypercycleColoringAdapter());
-        _algorithms.Add(Algorithm.BruteForcePermutations, new BruteForcePermutationColoring());
-        _algorithms.Add(Algorithm.BruteForceVariations, new BruteForceVariationColoring());
+        _algorithms.Add(Algorithm.CUDABruteForce, new BruteForceVariationColoring());
         _algorithms.Add(Algorithm.Lovasz3Uniform, new Lovasz3Uniform());
         _algorithms.Add(Algorithm.LovaszUniform, new LovaszUniform());
-        _algorithms.Add(Algorithm.LovaszLinearUniform, new LovaszLinearUniform());
         _algorithms.Add(Algorithm.NestedMonteCarloSearch, new NestedMonteCarloSearch());
         _algorithms.Add(Algorithm.NestedRolloutPolicyAdaptation, new NestedRolloutPolicyAdaptation());
     }
@@ -193,7 +190,7 @@ public class AlgorithmExecutionService
 
     private bool IsBruteForce(Algorithm algorithm)
     {
-        return algorithm == Algorithm.BruteForcePermutations || algorithm == Algorithm.BruteForceVariations;
+        return algorithm == Algorithm.CUDABruteForce;
     }
 
     private bool IsMonteCarlo(Algorithm algorithm)

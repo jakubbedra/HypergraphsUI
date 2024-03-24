@@ -2,8 +2,7 @@
 
 public enum Algorithm
 {
-    BruteForcePermutations,
-    BruteForceVariations,
+    CUDABruteForce,
     HyperstarColoring,
     HypertreeColoring,
     HyperpathColoring,
@@ -13,7 +12,6 @@ public enum Algorithm
     VertexDegreeGreedy,
     Lovasz3Uniform,
     LovaszUniform,
-    LovaszLinearUniform,
     NestedMonteCarloSearch,
     NestedRolloutPolicyAdaptation
 }
