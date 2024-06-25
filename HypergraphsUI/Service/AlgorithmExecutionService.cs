@@ -24,16 +24,22 @@ public class AlgorithmExecutionService
         _generators.Add(GeneratorType.Hypertree, new HypertreeGenerator());
         _generators.Add(GeneratorType.Hyperpath, new HyperpathGenerator());
         _generators.Add(GeneratorType.Hypercycle, new HypercycleGenerator());
-        _generators.Add(GeneratorType.Uniform, new UniformHypergraphGenerator());
+        _generators.Add(GeneratorType.ThreeColorableHypercycle, new ThreeColorableHypercycleGenerator());
         _generators.Add(GeneratorType.ThreeUniform, new ThreeUniformHypergraphGenerator());
+        _generators.Add(GeneratorType.Uniform, new UniformHypergraphGenerator());
 
         _algorithms = new Dictionary<Algorithm, BaseAlgorithm>();
+        _algorithms.Add(Algorithm.ClassicGreedy, new ClassicGreedy());
         _algorithms.Add(Algorithm.BaseGreedy, new BaseGreedy());
+        _algorithms.Add(Algorithm.OtherGreedy, new OtherGreedy());
         _algorithms.Add(Algorithm.DSatur, new DSatur());
-        _algorithms.Add(Algorithm.VertexDegreeGreedy, new VertexDegreeGreedy());
+        _algorithms.Add(Algorithm.LargestFirst, new LargestFirst());
+        _algorithms.Add(Algorithm.LargestFirstNeighbours, new LargestFirstNeighbours());
+        _algorithms.Add(Algorithm.LargestFirstEdgeSizes, new LargestFirstEdgeSizes());
         _algorithms.Add(Algorithm.HyperstarColoring, new HyperstarColoringAdapter());
         _algorithms.Add(Algorithm.HypertreeColoring, new HypertreeColoringAdapter());
         _algorithms.Add(Algorithm.HyperpathColoring, new HyperpathColoringAdapter());
+        _algorithms.Add(Algorithm.HyperpathGreedyColoring, new HyperpathGreedyColoringAdapter());
         _algorithms.Add(Algorithm.HypercycleColoring, new HypercycleColoringAdapter());
         _algorithms.Add(Algorithm.CUDABruteForce, new BruteForceVariationColoring());
         _algorithms.Add(Algorithm.Lovasz3Uniform, new Lovasz3Uniform());
@@ -52,48 +58,62 @@ public class AlgorithmExecutionService
             .Sum();
         foreach (HypergraphRequest hypergraphRequest in request.Hypergraphs)
         {
-            foreach (string size in hypergraphRequest.Sizes)// todo: avg used colors should be double?
+            foreach (string size in hypergraphRequest.Sizes) 
             {
-                Dictionary<Algorithm, long> avgExecutionTimes = new Dictionary<Algorithm, long>();
-                Dictionary<Algorithm, long> minExecutionTimes = new Dictionary<Algorithm, long>();
-                Dictionary<Algorithm, long> maxExecutionTimes = new Dictionary<Algorithm, long>();
+                Dictionary<Algorithm, long> avgExecutionTimesMillis = new Dictionary<Algorithm, long>();
+                Dictionary<Algorithm, long> minExecutionTimesMillis = new Dictionary<Algorithm, long>();
+                Dictionary<Algorithm, long> maxExecutionTimesMillis = new Dictionary<Algorithm, long>();
+                Dictionary<Algorithm, long> avgExecutionTimesTicks = new Dictionary<Algorithm, long>();
+                Dictionary<Algorithm, long> minExecutionTimesTicks = new Dictionary<Algorithm, long>();
+                Dictionary<Algorithm, long> maxExecutionTimesTicks = new Dictionary<Algorithm, long>();
                 Dictionary<Algorithm, double> avgUsedColors = new Dictionary<Algorithm, double>();
                 Dictionary<Algorithm, int> minUsedColors = new Dictionary<Algorithm, int>();
                 Dictionary<Algorithm, int> maxUsedColors = new Dictionary<Algorithm, int>();
                 for (int i = 0; i < request.HypergraphsCount; i++)
                 {
-                    Hypergraph hypergraph = GenerateHypergraph(size.Split(";").Select(s => int.Parse(s)).ToArray(), hypergraphRequest.GeneratorType);
+                    Hypergraph hypergraph = GenerateHypergraph(size.Split(";").Select(s => int.Parse(s)).ToArray(),
+                        hypergraphRequest.GeneratorType);
                     foreach (Algorithm algorithm in request.ChosenAlgorithms)
                     {
-                        avgExecutionTimes.TryAdd(algorithm, 0);
-                        minExecutionTimes.TryAdd(algorithm, long.MaxValue);
-                        maxExecutionTimes.TryAdd(algorithm, 0);
+                        avgExecutionTimesMillis.TryAdd(algorithm, 0);
+                        minExecutionTimesMillis.TryAdd(algorithm, long.MaxValue);
+                        maxExecutionTimesMillis.TryAdd(algorithm, 0);
+                        avgExecutionTimesTicks.TryAdd(algorithm, 0);
+                        minExecutionTimesTicks.TryAdd(algorithm, long.MaxValue);
+                        maxExecutionTimesTicks.TryAdd(algorithm, 0);
                         avgUsedColors.TryAdd(algorithm, 0);
                         minUsedColors.TryAdd(algorithm, int.MaxValue);
                         maxUsedColors.TryAdd(algorithm, 0);
-                        SimpleColoringResult coloringResult = ExecuteHypergraphColoring(hypergraph, algorithm, request.IterationCount);
-                        avgExecutionTimes[algorithm] += coloringResult.Time;
-                        minExecutionTimes[algorithm] = Math.Min(minExecutionTimes[algorithm], coloringResult.Time);
-                        maxExecutionTimes[algorithm] = Math.Max(maxExecutionTimes[algorithm], coloringResult.Time);
-                        
+                        SimpleColoringResult coloringResult = ExecuteHypergraphColoring(hypergraph, algorithm);
+                        avgExecutionTimesMillis[algorithm] += coloringResult.TimeMillis;
+                        minExecutionTimesMillis[algorithm] = Math.Min(minExecutionTimesMillis[algorithm], coloringResult.TimeMillis);
+                        maxExecutionTimesMillis[algorithm] = Math.Max(maxExecutionTimesMillis[algorithm], coloringResult.TimeMillis);
+
+                        avgExecutionTimesTicks[algorithm] += coloringResult.TimeTicks;
+                        minExecutionTimesTicks[algorithm] = Math.Min(minExecutionTimesTicks[algorithm], coloringResult.TimeTicks);
+                        maxExecutionTimesTicks[algorithm] = Math.Max(maxExecutionTimesTicks[algorithm], coloringResult.TimeTicks);
+
                         avgUsedColors[algorithm] += coloringResult.UsedColors;
                         minUsedColors[algorithm] = Math.Min(minUsedColors[algorithm], coloringResult.UsedColors);
                         maxUsedColors[algorithm] = Math.Max(maxUsedColors[algorithm], coloringResult.UsedColors);
                         doneSamples++;
-                        progress.Report((double) doneSamples * 100.0 / (double) totalSamples);
+                        progress.Report((double)doneSamples * 100.0 / (double)totalSamples);
                     }
                 }
+
                 foreach (Algorithm algorithm in request.ChosenAlgorithms)
                 {
                     ColoringResult result = new ColoringResult()
                     {
                         Algorithm = algorithm,
                         HypergraphType = hypergraphRequest.GeneratorType,
-                        AvgExecutionTime = avgExecutionTimes[algorithm] / request.HypergraphsCount,
-                        MinExecutionTime = minExecutionTimes[algorithm],
-                        MaxExecutionTime = maxExecutionTimes[algorithm],
+                        AvgExecutionTime = avgExecutionTimesMillis[algorithm] / request.HypergraphsCount,
+                        MinExecutionTime = minExecutionTimesMillis[algorithm],
+                        MaxExecutionTime = maxExecutionTimesMillis[algorithm],
+                        AvgExecutionTimeTicks = avgExecutionTimesTicks[algorithm] / request.HypergraphsCount,
+                        MinExecutionTimeTicks = minExecutionTimesTicks[algorithm],
+                        MaxExecutionTimeTicks = maxExecutionTimesTicks[algorithm],
                         DistinctHypergraphs = request.HypergraphsCount,
-                        Iterations = request.IterationCount,
                         Size = size,
                         AvgUsedColors = avgUsedColors[algorithm] / (double)request.HypergraphsCount,
                         MinUsedColors = minUsedColors[algorithm],
@@ -126,7 +146,7 @@ public class AlgorithmExecutionService
     {
         return algorithms.All(algorithm => _algorithms[algorithm].GetAllowedGeneratorTypes().Contains(generator));
     }
-    
+
     private Hypergraph GenerateHypergraph(int[] size, GeneratorType generatorType)
     {
         BaseGenerator generator = _generators[generatorType];
@@ -139,63 +159,30 @@ public class AlgorithmExecutionService
         return generator.Generate(size[0], size[1]);
     }
 
-    private SimpleColoringResult ExecuteHypergraphColoring(Hypergraph hypergraph, Algorithm algorithm, int iterations)
+    private SimpleColoringResult ExecuteHypergraphColoring(Hypergraph hypergraph, Algorithm algorithm)
     {
         BaseAlgorithm coloringAlgorithm = _algorithms[algorithm];
         int[] colors = new int [0];
         int tmp = 0;
-        
+
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
-        if (!IsMonteCarlo(algorithm) && !IsBruteForce(algorithm))
-        {
-            for (int i = 0; i < iterations; i++)
-            {
-                tmp = i;
-                colors = coloringAlgorithm.ComputeColoring(hypergraph);
-            }
-        }
-        else
-        {
-            try
-            {
-                colors = coloringAlgorithm.ComputeColoring(hypergraph);
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-        }
+        
+        colors = coloringAlgorithm.ComputeColoring(hypergraph);
+        
         stopwatch.Stop();
-        var executionMillis = stopwatch.ElapsedMilliseconds;
-        
-        Stopwatch stopwatchLoop = new Stopwatch();
-        stopwatchLoop.Start();
-        if (!IsMonteCarlo(algorithm) && !IsBruteForce(algorithm))
-        {
-            for (int i = 0; i < iterations; i++)
-            {
-                tmp = i;
-            }
-        }
-        stopwatchLoop.Stop();
-        long loopMillis = stopwatchLoop.ElapsedMilliseconds;
-        
+        long millis = stopwatch.ElapsedMilliseconds;
+        long ticks = stopwatch.ElapsedTicks;
+
+
+        int count = colors.Distinct().Count();
+
         return new SimpleColoringResult()
         {
             UsedColors = colors.Distinct().Count(),
-            Time = ((executionMillis - loopMillis) / (IsMonteCarlo(algorithm) || IsBruteForce(algorithm) ? 1 : iterations))// todo: if monte-carlo -> iteration = 0
+            TimeMillis = millis,
+            TimeTicks = ticks
         };
     }
 
-    private bool IsBruteForce(Algorithm algorithm)
-    {
-        return algorithm == Algorithm.CUDABruteForce;
-    }
-
-    private bool IsMonteCarlo(Algorithm algorithm)
-    {
-        return algorithm == Algorithm.NestedMonteCarloSearch || algorithm == Algorithm.NestedRolloutPolicyAdaptation;
-    }
-    
 }

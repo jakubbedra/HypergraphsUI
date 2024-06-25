@@ -12,7 +12,7 @@ public class HypercycleColoringAdapter : BaseAlgorithm
     public override HashSet<GeneratorType> GetAllowedGeneratorTypes() =>
         new HashSet<GeneratorType>()
         {
-            GeneratorType.Hypercycle
+            GeneratorType.Hypercycle, GeneratorType.ThreeColorableHypercycle
         };
 
     public override int[] ComputeColoring(Hypergraph hypergraph)

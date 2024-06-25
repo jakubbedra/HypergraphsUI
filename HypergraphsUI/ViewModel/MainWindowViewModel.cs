@@ -65,14 +65,13 @@ public class MainWindowViewModel : INotifyCollectionChanged, INotifyPropertyChan
         }
     }
     
-    public int IterationsCount { get; set; }
     
     // count of hypergraphs of each size 
     public int HypergraphsCount { get; set; }
     
     private Dictionary<GeneratorType, List<string>> _hypergraphSizes;
     
-    private ObservableCollection<string> _selectedHypergraphSizes;//todo: maybe update this instead
+    private ObservableCollection<string> _selectedHypergraphSizes;
     public ObservableCollection<string> SelectedHypergraphSizes
     {
         get => _selectedHypergraphSizes;
@@ -166,7 +165,6 @@ public class MainWindowViewModel : INotifyCollectionChanged, INotifyPropertyChan
         
         _service = new AlgorithmExecutionService();
 
-        IterationsCount = 10;
         HypergraphsCount = 1;
         _hypergraphSizes = new Dictionary<GeneratorType, List<string>>();
         foreach (GeneratorType generator in AvailableGenerators)
@@ -188,8 +186,7 @@ public class MainWindowViewModel : INotifyCollectionChanged, INotifyPropertyChan
         {
             ChosenAlgorithms = _chosenAlgorithms.ToList(),
             Hypergraphs = hypergraphRequests,
-            HypergraphsCount = HypergraphsCount,
-            IterationCount = IterationsCount
+            HypergraphsCount = HypergraphsCount
         };
         
         var progressReporter = new Progress<double>(value =>
@@ -212,6 +209,8 @@ public class MainWindowViewModel : INotifyCollectionChanged, INotifyPropertyChan
             // Clear previous results and add new results
             _results.Clear();
             executionResult.Results.ForEach(_results.Add);
+            LatexResultExporter exporter = new LatexResultExporter();
+            exporter.Export(executionResult);
 
             // Set progress to 100% upon completion
             Application.Current.Dispatcher.Invoke(() =>

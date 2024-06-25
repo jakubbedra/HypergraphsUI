@@ -5,16 +5,16 @@ using HypergraphsUI.ViewModel;
 
 namespace HypergraphsUI.Algorithms.Heuristics;
 
-public class VertexDegreeGreedy : BaseAlgorithm
+public class BaseGreedy : BaseAlgorithm
 {
-    public override Algorithm GetAlgorithm() => Algorithm.VertexDegreeGreedy;
+    public override Algorithm GetAlgorithm() => Algorithm.BaseGreedy;
 
     public override HashSet<GeneratorType> GetAllowedGeneratorTypes() =>
         AlgorithmConstants.AllGeneratorTypes;
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        SimplifiedDSatur coloring = new SimplifiedDSatur();
+        MonochromeRepair coloring = new MonochromeRepair();
         return coloring.ComputeColoring(hypergraph);
     }
 }

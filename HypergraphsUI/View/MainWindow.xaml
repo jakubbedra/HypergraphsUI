@@ -169,17 +169,9 @@
                     <Button Grid.Column="1" Height="30px" Command="{Binding RemoveGeneratorCommand}">Remove</Button>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0">Iterations:</TextBlock>
-                    <xctk:IntegerUpDown Grid.Column="0" x:Name="integerUpDownIterations"
-                                        Value="{Binding IterationsCount}" DefaultValue="10" Minimum="1" Maximum="100"
-                                        HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="5" />
-                    <TextBlock Grid.Column="1">Distinct Hypergraphs:</TextBlock>
-                    <xctk:IntegerUpDown Grid.Column="1" x:Name="integerUpDownHypergraphs"
-                                        Value="{Binding HypergraphsCount}" DefaultValue="1" Minimum="1" Maximum="100"
+                    <TextBlock>Distinct Hypergraphs:</TextBlock>
+                    <xctk:IntegerUpDown x:Name="integerUpDownHypergraphs"
+                                        Value="{Binding HypergraphsCount}" DefaultValue="1" Minimum="1" Maximum="1000"
                                         HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="5" />
                 </Grid>
                 <Grid Grid.Row="3">
@@ -360,7 +352,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="140">
-                                <GridViewColumnHeader Content="Avg Execution Time">
+                                <GridViewColumnHeader Content="Avg Execution Time [millis]">
                                     <GridViewColumnHeader.InputBindings>
                                         <MouseBinding
                                             MouseAction="LeftClick"
@@ -375,7 +367,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="140">
-                                <GridViewColumnHeader Content="Min Execution Time">
+                                <GridViewColumnHeader Content="Min Execution Time [millis]">
                                     <GridViewColumnHeader.InputBindings>
                                         <MouseBinding
                                             MouseAction="LeftClick"
@@ -390,7 +382,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="140">
-                                <GridViewColumnHeader Content="Max Execution Time">
+                                <GridViewColumnHeader Content="Max Execution Time [millis]">
                                     <GridViewColumnHeader.InputBindings>
                                         <MouseBinding
                                             MouseAction="LeftClick"
@@ -404,6 +396,58 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            
+                            
+                            <!-- ticks -->
+                            
+                            
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Avg Execution Time [ticks]">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="AvgExecutionTimeTicks" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding AvgExecutionTimeTicks}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Min Execution Time [ticks]">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="MinExecutionTimeTicks" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding MinExecutionTimeTicks}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="140">
+                                <GridViewColumnHeader Content="Max Execution Time [ticks]">
+                                    <GridViewColumnHeader.InputBindings>
+                                        <MouseBinding
+                                            MouseAction="LeftClick"
+                                            Command="{Binding SortListViewCommand}"
+                                            CommandParameter="MaxExecutionTimeTicks" />
+                                    </GridViewColumnHeader.InputBindings>
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="{x:Type model:ColoringResult}">
+                                        <TextBlock Text="{Binding MaxExecutionTimeTicks}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            
+                            
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -415,7 +459,8 @@
             <ProgressBar 
                 Grid.Row="3"
                 Height="20px"
-                Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Value="{Binding Progress, 
+                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 Maximum="100.0">
             </ProgressBar>
         </Grid>

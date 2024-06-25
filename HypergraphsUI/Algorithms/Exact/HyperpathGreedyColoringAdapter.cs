@@ -5,19 +5,19 @@ using HypergraphsUI.ViewModel;
 
 namespace HypergraphsUI.Algorithms.Exact;
 
-public class HypertreeColoringAdapter : BaseAlgorithm
+public class HyperpathGreedyColoringAdapter : BaseAlgorithm
 {
-    public override Algorithm GetAlgorithm() => Algorithm.HypertreeColoring;
+    public override Algorithm GetAlgorithm() => Algorithm.HyperpathGreedyColoring;
 
     public override HashSet<GeneratorType> GetAllowedGeneratorTypes() =>
         new HashSet<GeneratorType>()
         {
-            GeneratorType.Hypertree, GeneratorType.Hyperpath, GeneratorType.Hyperstar
+            GeneratorType.Hyperpath
         };
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        HypertreeColoring coloring = new HypertreeColoring();
+        HyperpathGreedyColoring coloring = new HyperpathGreedyColoring();
         return coloring.ComputeColoring(hypergraph);
     }
 }

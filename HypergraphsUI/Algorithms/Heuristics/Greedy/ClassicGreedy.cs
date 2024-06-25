@@ -5,16 +5,16 @@ using HypergraphsUI.ViewModel;
 
 namespace HypergraphsUI.Algorithms.Heuristics;
 
-public class BaseGreedy : BaseAlgorithm
+public class ClassicGreedy : BaseAlgorithm
 {
-    public override Algorithm GetAlgorithm() => Algorithm.BaseGreedy;
+    public override Algorithm GetAlgorithm() => Algorithm.ClassicGreedy;
 
     public override HashSet<GeneratorType> GetAllowedGeneratorTypes() =>
         AlgorithmConstants.AllGeneratorTypes;
 
     public override int[] ComputeColoring(Hypergraph hypergraph)
     {
-        GreedyColoring coloring = new GreedyColoring();
+        Hypergraphs.Algorithms.ClassicGreedy coloring = new Hypergraphs.Algorithms.ClassicGreedy();
         return coloring.ComputeColoring(hypergraph);
     }
 }

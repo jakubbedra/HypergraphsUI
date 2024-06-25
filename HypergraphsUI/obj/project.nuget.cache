@@ -1,25 +1,25 @@
 {
   "version": 2,
-  "dgSpecHash": "8hPGCpgIqP2pQfS0HsWFsOhek9eT4c90YNO0MCSz3pBndMWzJ04ZJsJ8+2fHysVEM/wTXGgjcpex4AAM1xWdNg==",
+  "dgSpecHash": "Bm9pKAimt7ly97rGm9R/G3GXJgsWRqvPQUWcCputZEl64N0YftW6hdX1U+vR/kyuhgbvQT3fi1rM7wITqojyyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jakub\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
+  "projectFilePath": "C:\\Users\\theKonfyrm\\RiderProjects\\HypergraphsUI\\HypergraphsUI\\HypergraphsUI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jakub\\.nuget\\packages\\extended.wpf.toolkit\\4.6.0\\extended.wpf.toolkit.4.6.0.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\ilgpu\\1.5.1\\ilgpu.1.5.1.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\the.microsoft.expression.interactions\\4.5.0\\the.microsoft.expression.interactions.4.5.0.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.27\\microsoft.netcore.app.ref.6.0.27.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.27\\microsoft.windowsdesktop.app.ref.6.0.27.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.27\\microsoft.aspnetcore.app.ref.6.0.27.nupkg.sha512",
-    "C:\\Users\\jakub\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.27\\microsoft.netcore.app.host.win-x64.6.0.27.nupkg.sha512"
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\extended.wpf.toolkit\\4.6.0\\extended.wpf.toolkit.4.6.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\ilgpu\\1.5.1\\ilgpu.1.5.1.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\the.microsoft.expression.interactions\\4.5.0\\the.microsoft.expression.interactions.4.5.0.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.20\\microsoft.netcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.20\\microsoft.windowsdesktop.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.20\\microsoft.aspnetcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.20\\microsoft.netcore.app.host.win-x64.6.0.20.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Pakiet „The.Microsoft.Expression.Interactions 4.5.0” został przywrócony przy użyciu elementu „.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1” zamiast platformy docelowej projektu „net6.0-windows7.0”. Ten pakiet może nie być w pełni kompatybilny z Twoim projektem.",
+      "message": "Package 'The.Microsoft.Expression.Interactions 4.5.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
       "libraryId": "The.Microsoft.Expression.Interactions",
       "targetGraphs": [
         "net6.0-windows7.0"

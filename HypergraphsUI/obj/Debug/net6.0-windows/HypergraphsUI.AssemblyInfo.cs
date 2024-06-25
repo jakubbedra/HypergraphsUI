@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HypergraphsUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08943081d8375c5a683be226fefd2ca94dddd382")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("HypergraphsUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HypergraphsUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

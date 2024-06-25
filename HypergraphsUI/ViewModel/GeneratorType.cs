@@ -7,6 +7,7 @@ public enum GeneratorType
     Hypertree,
     Hyperpath,
     Hypercycle,
+    ThreeColorableHypercycle,
     ThreeUniform,
     Uniform,
 }
